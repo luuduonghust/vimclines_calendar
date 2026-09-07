@@ -1,0 +1,38 @@
+name: Tự động gửi thông báo lịch VBS
+
+on:
+  schedule:
+    # Chạy vào 07:00 sáng Việt Nam (00:00 UTC) hàng ngày
+    - cron: '0 0 * * *'
+    # Chạy vào 16:00 chiều Việt Nam (09:00 UTC) hàng ngày
+    - cron: '0 9 * * *'
+  # Cho phép kích hoạt chạy thủ công trên giao diện GitHub
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Cài đặt thư viện Playwright và Requests
+      run: |
+        python -m pip install --upgrade pip
+        pip install playwright beautifulsoup4 requests
+        playwright install chromium
+
+    - name: Chạy script cào dữ liệu và gửi Telegram
+      env:
+        # Ánh xạ các biến bảo mật từ GitHub Secrets vào môi trường chạy
+        VBS_USERNAME: ${{ secrets.VBS_USERNAME }}
+        VBS_PASSWORD: ${{ secrets.VBS_PASSWORD }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python vimcdata.py
