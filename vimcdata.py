@@ -5,10 +5,11 @@ import time
 import re
 import requests
 import os
-USERNAME = os.environ.get("VBS_USERNAME")
-PASSWORD = os.environ.get("VBS_PASSWORD")
-TELEGRAM_BOT_TOKEN = "TELEGRAM_TOKEN"
-TELEGRAM_CHAT_ID = "TELEGRAM_CHAT_ID"
+# Lấy thông tin từ GitHub Actions
+VBS_USERNAME = os.environ.get("VBS_USERNAME")
+VBS_PASSWORD = os.environ.get("VBS_PASSWORD")
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
 # Hàm gửi tin nhắn qua Telegram
 def send_telegram_message(message):
