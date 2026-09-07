@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import time
 import re
-
+import requests
 import os
 USERNAME = os.environ.get("VBS_USERNAME")
 PASSWORD = os.environ.get("VBS_PASSWORD")
