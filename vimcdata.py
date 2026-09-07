@@ -100,7 +100,7 @@ if __name__ == "__main__":
                         
                         # Điều kiện lọc: Đang lấy tất cả cuộc họp (để test). 
                         # Nếu bạn chỉ muốn lấy lịch của VIMC Lines, hãy dùng dòng này:
-                        # if "VIMC Lines" in thanh_vien:
+                        if "Tổ giám sát (Ban TK-TH và PC&QTRR)" in thanh_vien:
                         
                         meeting_info = {
                             "noi_dung": noi_dung,
