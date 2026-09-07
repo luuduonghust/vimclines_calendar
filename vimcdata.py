@@ -57,18 +57,22 @@ def get_schedule_html():
         
         return html_content
 
-if __name__ == "__main__":
+if __name__ == "__main__":    
     html_data = get_schedule_html()
     soup = BeautifulSoup(html_data, "html.parser")
     
-    today = datetime.now()
+    # Ép thời gian sang múi giờ Việt Nam (UTC+7)
+    vn_timezone = timezone(timedelta(hours=7))
+    now_vn = datetime.now(vn_timezone)
+    
+    today = now_vn
     tomorrow = today + timedelta(days=1)
     
     str_today = today.strftime("%d/%m")
     str_tomorrow = tomorrow.strftime("%d/%m")
     
-    print(f"\nĐang quét lịch cho Hôm nay ({str_today}) và Ngày mai ({str_tomorrow})...")
-
+    print(f"\nĐang quét lịch theo giờ Việt Nam - Hôm nay ({str_today}) và Ngày mai ({str_tomorrow})...")
+    
     date_blocks = soup.find_all(lambda tag: tag.name == "strong" and re.search(r'\d{2}/\d{2}', tag.text))
     
     schedule_today = []
