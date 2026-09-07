@@ -4,9 +4,9 @@ from datetime import datetime, timedelta
 import time
 import re
 
-# Điền thông tin đăng nhập của bạn
-USERNAME = "Vt.cont"
-PASSWORD = "lines@2025"
+import os
+USERNAME = os.environ.get("VBS_USERNAME")
+PASSWORD = os.environ.get("VBS_PASSWORD")
 
 def get_schedule_html():
     with sync_playwright() as p:
