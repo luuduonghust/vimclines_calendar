@@ -104,7 +104,7 @@ if __name__ == "__main__":
                         dia_diem = cols[3].get_text(strip=True, separator=', ')
                         
                         # Điều kiện lọc theo tổ công tác
-                        if "Tổ giám sát (Ban TK-TH và PC&QTRR)" in thanh_vien:
+                        if "Tổ giám sát (VIMC Lines)" in thanh_vien:
                             meeting_info = {
                                 "noi_dung": noi_dung,
                                 "thanh_vien": thanh_vien,
