@@ -106,13 +106,13 @@ if __name__ == "__main__":
                         # Nếu bạn chỉ muốn lấy lịch của VIMC Lines, hãy dùng dòng này:
                         if "Tổ giám sát (Ban TK-TH và PC&QTRR)" in thanh_vien:
                         
-                        meeting_info = {
+                            meeting_info = {
                             "noi_dung": noi_dung,
                             "thanh_vien": thanh_vien,
                             "dia_diem": dia_diem
-                        }
+                            }
                         
-                        if current_block_date == str_today:
+                            if current_block_date == str_today:
                             schedule_today.append(meeting_info)
                         else:
                             schedule_tomorrow.append(meeting_info)
