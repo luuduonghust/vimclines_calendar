@@ -114,7 +114,7 @@ if __name__ == "__main__":
                         
                             if current_block_date == str_today:
                             schedule_today.append(meeting_info)
-                        else:
+                            else:
                             schedule_tomorrow.append(meeting_info)
 
     # ĐÓNG GÓI VÀ GỬI THÔNG BÁO CHO HÔM NAY
