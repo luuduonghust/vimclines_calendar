@@ -1,10 +1,11 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import time
 import re
 import requests
 import os
+
 # Lấy thông tin từ GitHub Actions
 VBS_USERNAME = os.environ.get("VBS_USERNAME")
 VBS_PASSWORD = os.environ.get("VBS_PASSWORD")
@@ -102,20 +103,19 @@ if __name__ == "__main__":
                         thanh_vien = cols[2].get_text(strip=True, separator=', ')
                         dia_diem = cols[3].get_text(strip=True, separator=', ')
                         
-                        # Điều kiện lọc: Đang lấy tất cả cuộc họp (để test). 
-                        # Nếu bạn chỉ muốn lấy lịch của VIMC Lines, hãy dùng dòng này:
+                        # Điều kiện lọc theo tổ công tác
                         if "Tổ giám sát (Ban TK-TH và PC&QTRR)" in thanh_vien:
-                        
                             meeting_info = {
-                            "noi_dung": noi_dung,
-                            "thanh_vien": thanh_vien,
-                            "dia_diem": dia_diem
+                                "noi_dung": noi_dung,
+                                "thanh_vien": thanh_vien,
+                                "dia_diem": dia_diem
                             }
-                        
+                            
+                            # Đã sửa lại khoảng trắng thụt lề chuẩn xác ở đây
                             if current_block_date == str_today:
-                            schedule_today.append(meeting_info)
+                                schedule_today.append(meeting_info)
                             else:
-                            schedule_tomorrow.append(meeting_info)
+                                schedule_tomorrow.append(meeting_info)
 
     # ĐÓNG GÓI VÀ GỬI THÔNG BÁO CHO HÔM NAY
     print(f"\nĐang xử lý thông báo Hôm nay...")
@@ -126,8 +126,6 @@ if __name__ == "__main__":
         send_telegram_message(msg_today)
         print("-> Đã gửi Telegram.")
     else:
-        # Nếu muốn Bot báo cả khi trống lịch thì bật dòng dưới lên
-        # send_telegram_message(f"<b>📅 LỊCH HỌP HÔM NAY ({str_today})</b>\nKhông có cuộc họp nào.")
         print("-> Trống lịch, không gửi tin nhắn.")
 
     # ĐÓNG GÓI VÀ GỬI THÔNG BÁO CHO NGÀY MAI
